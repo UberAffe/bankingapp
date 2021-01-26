@@ -2,14 +2,14 @@ package bankingapp.sessions;
 
 import java.util.ArrayList;
 
-import bankingapp.daos.AbstractDAO;
+import bankingapp.daos.SessionDAO;
 import bankingapp.daos.AccountsDAO;
 import bankingapp.exceptions.BankException;
 import bankingapp.utils.BankConsole;
 import bankingapp.utils.PROMPTS;
 
 public class CustomerSession extends UserSession{
-	public CustomerSession(AbstractDAO account) {
+	public CustomerSession(SessionDAO account) {
 		super();
 		menu=PROMPTS.CUSTOMERMENU;
 		user=account;

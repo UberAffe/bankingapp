@@ -1,12 +1,12 @@
 package bankingapp.sessions;
 
-import bankingapp.daos.AbstractDAO;
+import bankingapp.daos.SessionDAO;
 import bankingapp.exceptions.BankException;
 import bankingapp.utils.BankConsole;
 import bankingapp.utils.PROMPTS;
 
 public abstract class Session {
-	protected AbstractDAO user;
+	protected SessionDAO user;
 	protected static boolean keepGoing=true;
 	protected static boolean logout=false;
 	protected PROMPTS menu;

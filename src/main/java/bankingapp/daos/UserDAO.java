@@ -10,9 +10,9 @@ import bankingapp.exceptions.BankException;
 import bankingapp.exceptions.EXCEPT;
 import bankingapp.utils.BankLog;
 
-public class UserAccount extends AbstractDAO{
+public class UserDAO extends SessionDAO{
 	
-	public UserAccount(int uid, String un, String pw) {
+	public UserDAO(int uid, String un, String pw) {
 		super(uid, un, pw);
 		// TODO Auto-generated constructor stub
 	}

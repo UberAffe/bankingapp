@@ -1,12 +1,12 @@
 package bankingapp.sessions;
 
-import bankingapp.daos.AbstractDAO;
+import bankingapp.daos.SessionDAO;
 import bankingapp.utils.BankConsole;
 import bankingapp.utils.PROMPTS;
 
 public class EmployeeSession extends Session{
 
-	public EmployeeSession(AbstractDAO account) {
+	public EmployeeSession(SessionDAO account) {
 		user=account;
 		menu=PROMPTS.EMPLOYEEMENU;
 	}

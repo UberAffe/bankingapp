@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 import bankingapp.utils.BankLog;
 
-public class CustomerAccount extends UserAccount {
+public class CustomerAccount extends UserDAO {
 	
 	private ArrayList<AccountsDAO> accounts = new ArrayList<AccountsDAO>();
 	
@@ -16,7 +16,7 @@ public class CustomerAccount extends UserAccount {
 		super(userID,un,pw);
 	}
 
-	public ArrayList getAccounts() {
+	public ArrayList<AccountsDAO> getAccounts() {
 		return accounts;
 	}
 	

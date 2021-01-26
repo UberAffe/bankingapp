@@ -2,7 +2,7 @@ package bankingapp.sessions;
 
 import java.util.Arrays;
 
-import bankingapp.daos.UserAccount;
+import bankingapp.daos.UserDAO;
 import bankingapp.exceptions.BankException;
 import bankingapp.utils.BankConsole;
 import bankingapp.utils.BankLog;
@@ -11,7 +11,7 @@ import bankingapp.utils.PROMPTS;
 public class DefaultSession extends Session{
 
 	public DefaultSession() {
-		menu = PROMPTS.STARTUP;
+		menu = PROMPTS.STARTUPMENU;
 	}
 	@Override
 	public boolean processInputs() throws BankException {
@@ -60,16 +60,18 @@ public class DefaultSession extends Session{
 	}
 
 	private void registerUser() {
-		BankConsole.display(PROMPTS.REGISTER.toString());
+		BankConsole.display(PROMPTS.REGISTER);
 		String un = BankConsole.read();
+		BankConsole.display(PROMPTS.REGISTER);
 		String ps = BankConsole.read();
+		//To-Do clean input
 		try {
-			UserAccount.registerUser(un, ps);
-			BankConsole.display("User "+un+" has been registered and is pending approval.");
+			UserDAO.registerUser(un, ps);
+			BankConsole.display(String.format(PROMPTS.SUCCESSREGISTER.toString(), un));
 		} catch (BankException e) {
 			switch(e.reason) {
 				case REGISTER:
-					BankConsole.display("Username "+un+" already exists,\nplease choose a different username.");
+					BankConsole.display(String.format(PROMPTS.FAILEDREGISTER.toString(), un));
 					BankLog.warn("Username "+un+" already exists.");
 					break;
 			default:

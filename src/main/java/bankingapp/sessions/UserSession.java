@@ -2,7 +2,7 @@ package bankingapp.sessions;
 
 import java.util.ArrayList;
 
-import bankingapp.daos.AbstractDAO;
+import bankingapp.daos.SessionDAO;
 import bankingapp.daos.AccountsDAO;
 import bankingapp.exceptions.BankException;
 import bankingapp.utils.BankConsole;
@@ -12,7 +12,7 @@ public class UserSession extends Session{
 	
 	public UserSession() {}
 	
-	public UserSession(AbstractDAO account) {
+	public UserSession(SessionDAO account) {
 		user=account;
 		menu=PROMPTS.USERMENU;
 	}
@@ -41,8 +41,7 @@ public class UserSession extends Session{
 					break;
 			}
 		}catch(NumberFormatException e) {
-			BankConsole.display("When entering the amount it should be a number with no special characters\n"
-						+"or spaces.");
+			BankConsole.display("When entering the amount it should be a number with no special characters or spaces.");
 		}
 	}
 	

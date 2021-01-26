@@ -1,14 +1,19 @@
 package bankingapp.utils;
 
 public enum PROMPTS {
-	STARTUP("If you would like to register a new account, type \"register\" and hit enter.\n"
-			+"If you woul like to login to an existing account, type \"login\" and hit enter."),
 	LOGIN("Please type your username and hit enter.","Please type your password and hit enter."),
 	FAILEDLOGIN("Your username and password do not match any registered users."),
+	APPLY("If you want to apply for a checking account type 'checking', if you want to apply\n"
+			+"for a savings account type 'saving'.",
+			"Enter the amount of money you are initially depositing to open this account."),
+	PENDINGACCOUNT("Your {0} account with account number {1} is still pending approval."),
 	ACCOUNT("Your {0} account with account number {1}, currently has a balance of {3}"),
-	REGISTER("Type your desired username, it should have no spaces or special characters.\n"
-			+"Hit enter and then type your desired password, this can have special characters,\n"
-			+"and hit enter again."),
+	REGISTER("Please enter your desired username.",
+			"Please enter your desired password."),
+	SUCCESSREGISTER("Your account has been registered with username {0},\nand is waiting for approval."),
+	FAILEDREGISTER("Username {0} already exists,\nplease choose a different username."),
+	STARTUPMENU("1. 'register' for a new account (r)",
+			"2. 'login' to an existing account (l)"),
 	USERMENU("1. 'view' pending accounts (v)",
 			"2. 'apply' for new account (a)",
 			"3. 'logout' of account (l)",
@@ -23,11 +28,7 @@ public enum PROMPTS {
 				"8. 'accept' money transfer (a)",
 				"9. 'logout' (l)",
 				"10. 'close' application (c)"),
-	EMPLOYEEMENU("1. view pending"),
-	APPLY("If you want to apply for a checking account type 'checking', if you want to apply\n"
-			+"for a savings account type 'saving'.",
-			"Enter the amount of money you are initially depositing to open this account."),
-	PENDINGACCOUNT("Your {0} account with account number {1} is still pending approval.");
+	EMPLOYEEMENU("1. view pending");
 	private String []text;
 	private String instructions;
 	private int position;

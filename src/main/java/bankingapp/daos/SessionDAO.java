@@ -2,13 +2,13 @@ package bankingapp.daos;
 
 import java.util.ArrayList;
 
-public class AbstractDAO extends Credentials{
+public class SessionDAO extends Credentials implements BasicDAO{
 
 	protected String username;
 	protected String password;
 	protected int userID;
 	
-	public AbstractDAO(int uid, String un, String pw) {
+	public SessionDAO(int uid, String un, String pw) {
 		userID=uid;
 		username=un;
 		password=pw;
@@ -24,6 +24,26 @@ public class AbstractDAO extends Credentials{
 	
 	public ArrayList<AccountsDAO> getActiveAccounts(){
 		return null;
+	}
+	@Override
+	public void insert() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void select() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
