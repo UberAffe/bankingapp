@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import bankingapp.daos.SessionDAO;
 import bankingapp.daos.TransferDAO;
 import bankingapp.daos.AccountsDAO;
-import bankingapp.daos.Credentials;
 import bankingapp.exceptions.BankException;
 import bankingapp.pojos.SessionPOJO;
 import bankingapp.pojos.TransferPOJO;
@@ -25,8 +24,9 @@ public class CustomerSession extends UserSession{
 		if(accounts==null) {
 			accounts = user.getActiveAccounts();
 		}
+		BankConsole.display(PROMPTS.ACCOUNT);
 		for(AccountsDAO account:accounts) {
-			BankConsole.display(String.format(PROMPTS.ACCOUNT.toString(),account.getType(),account.getID()+"",account.getBalance()+""));
+			BankConsole.display(String.format(PROMPTS.ACCOUNT.get(1),account.getType(),account.getID()+"",account.getBalance()+""));
 		}
 	}
 	private void deposit() {
