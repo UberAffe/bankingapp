@@ -13,7 +13,7 @@ public class CustomerAccount extends UserDAO {
 	private ArrayList<AccountsDAO> accounts = new ArrayList<AccountsDAO>();
 	
 	public CustomerAccount(int userID, String un, String pw) {
-		super(userID,un,pw);
+		super(userID, un,pw);
 	}
 
 	public ArrayList<AccountsDAO> getAccounts() {

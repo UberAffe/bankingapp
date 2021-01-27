@@ -14,7 +14,7 @@ import bankingapp.daos.UserDAO;
 import bankingapp.exceptions.BankException;
 import bankingapp.exceptions.EXCEPT;
 
-public class DAOTests extends Credentials{
+public class DAOTests {
 	
 	@Test
 	public void testRegisterUser() {
@@ -27,7 +27,7 @@ public class DAOTests extends Credentials{
 	
 	@Test
 	public void testGetUserIDAndType() {
-		try(Connection conn = getConnection();){
+		try(Connection conn = Credentials.getConnection();){
 			PreparedStatement cs = conn.prepareStatement("select * from getuseridandtype(?,?)");
 			cs.setString(1,"matt");
 			cs.setString(2, "keran");

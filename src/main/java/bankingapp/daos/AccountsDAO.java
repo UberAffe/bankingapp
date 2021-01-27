@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 
+import bankingapp.pojos.AccountPOJO;
 import bankingapp.utils.BankLog;
 
-public class AccountsDAO extends Credentials{
+public class AccountsDAO extends AccountPOJO implements BasicDAO{
 
 	private int id;
 	private double balance;
@@ -17,6 +18,7 @@ public class AccountsDAO extends Credentials{
 	private ArrayList<Integer> assocIDs = new ArrayList<Integer>();
 	
 	public AccountsDAO(int uid, int aid, double amount, String t) {
+		super();
 		id=aid;
 		assocIDs.add(uid);
 		balance=amount;
@@ -30,7 +32,7 @@ public class AccountsDAO extends Credentials{
 
 	public static AccountsDAO applyForAccount(int uid, String type, double amount) {
 		AccountsDAO temp = null;
-		try(Connection conn = getConnection();){
+		try(Connection conn = Credentials.getConnection();){
 			CallableStatement cs = conn.prepareCall("?= registeraccount(?, ?, ?)");
 			cs.registerOutParameter(1, Types.INTEGER);
 			cs.setInt(2, uid);
@@ -50,7 +52,7 @@ public class AccountsDAO extends Credentials{
 
 	public static ArrayList<AccountsDAO> getAccounts(int userID, boolean pending) {
 		ArrayList<AccountsDAO> accounts = new ArrayList<AccountsDAO>();
-		try(Connection conn = getConnection();){
+		try(Connection conn = Credentials.getConnection();){
 			CallableStatement cs = conn.prepareCall("call getuseraccounts(?,?)");
 			cs.setInt(1, userID);
 			cs.setBoolean(2, pending);
@@ -63,5 +65,48 @@ public class AccountsDAO extends Credentials{
 			e.printStackTrace();
 		}
 		return accounts;
+	}
+
+	@Override
+	public void insert(String ...args) throws SQLException {
+		//Unused method
+		BankLog.warn("I don't know how you got to the insert of AccountsDAO, but you shouldn't be here.");
+	}
+
+	@Override
+	public boolean update(String ...args) throws SQLException {
+		try(Connection conn = Credentials.getConnection();){
+			CallableStatement cs=null;
+			int uid = Integer.parseInt(args[0]);
+			double amount = Double.parseDouble(args[1]);
+			if(amount>0) {
+				cs= conn.prepareCall("call deposit(?,?,?)");
+			} else if(amount<0) {
+				cs= conn.prepareCall("call withdraw(?,?,?");
+			}
+			cs.setInt(1, uid);
+			cs.setInt(2, id);
+			cs.registerOutParameter(3, Types.DOUBLE);
+			cs.setDouble(3, amount);
+			cs.execute();
+			Double res = cs.getDouble(3);
+			if(res>=0) {
+				balance=cs.getDouble(3);
+				return true;
+			} 
+		}
+		return false;
+	}
+
+	@Override
+	public void delete(String ...args) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ArrayList select(String ...args) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

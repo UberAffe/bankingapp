@@ -8,17 +8,17 @@ import java.util.ArrayList;
 
 import bankingapp.exceptions.BankException;
 import bankingapp.exceptions.EXCEPT;
+import bankingapp.pojos.SessionPOJO;
 import bankingapp.utils.BankLog;
 
-public class UserDAO extends SessionDAO{
+public class UserDAO extends SessionPOJO implements SessionDAO{
 	
-	public UserDAO(int uid, String un, String pw) {
-		super(uid, un, pw);
-		// TODO Auto-generated constructor stub
+	public UserDAO(int userID, String un, String pw) {
+		super(userID, un, pw);
 	}
 
 	public static void registerUser(String un, String pw) throws BankException {
-		try(Connection conn = getConnection();){
+		try(Connection conn = Credentials.getConnection();){
 			CallableStatement cs = conn.prepareCall("{?= call registeruser(?,?,?)}");
 			cs.registerOutParameter(1, Types.BOOLEAN);
 			cs.setString(2, un);
@@ -36,10 +36,10 @@ public class UserDAO extends SessionDAO{
 	}
 	
 	public void applyForAccount(String type, double amount) {
-		try(Connection conn = getConnection();){
+		try(Connection conn = Credentials.getConnection();){
 			CallableStatement cs = conn.prepareCall("?= registeraccount(?, ?, ?)");
 			cs.registerOutParameter(1, Types.BOOLEAN);
-			cs.setString(2, username);
+			cs.setInt(2, userID);
 			cs.setDouble(3, amount);
 			cs.setString(4, type);
 			if(!cs.execute()) {
@@ -59,5 +59,29 @@ public class UserDAO extends SessionDAO{
 	@Override
 	public ArrayList<AccountsDAO> getActiveAccounts(){
 		return AccountsDAO.getAccounts(userID, true);
+	}
+
+	@Override
+	public void insert(String... args) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean update(String... args) throws SQLException {
+		return false;
+		
+	}
+
+	@Override
+	public void delete(String... args) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public ArrayList select(String... args) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

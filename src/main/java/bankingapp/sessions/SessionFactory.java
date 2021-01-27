@@ -25,7 +25,7 @@ public class SessionFactory {
 	}
 
 	public static void login(String username, String password) throws BankException {
-		SessionDAO account=DAOFactory.getAccount(username, password);
+		SessionDAO account=DAOFactory.getSession(username, password);
 		if(account instanceof CustomerAccount) {
 			BankLog.info("A Customer has logged in as "+username+".");
 			user= new CustomerSession(account);

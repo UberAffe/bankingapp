@@ -1,31 +1,145 @@
 package bankingapp.sessions;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import bankingapp.daos.SessionDAO;
+import bankingapp.daos.TransferDAO;
 import bankingapp.daos.AccountsDAO;
+import bankingapp.daos.Credentials;
 import bankingapp.exceptions.BankException;
+import bankingapp.pojos.SessionPOJO;
+import bankingapp.pojos.TransferPOJO;
 import bankingapp.utils.BankConsole;
 import bankingapp.utils.PROMPTS;
 
 public class CustomerSession extends UserSession{
-	public CustomerSession(SessionDAO account) {
+	ArrayList<AccountsDAO> accounts;
+	public CustomerSession(SessionDAO userAccount) {
 		super();
 		menu=PROMPTS.CUSTOMERMENU;
-		user=account;
+		user=userAccount;
 	}
 
 	private void view() {
-		ArrayList<AccountsDAO> accounts = user.getActiveAccounts();
+		if(accounts==null) {
+			accounts = user.getActiveAccounts();
+		}
 		for(AccountsDAO account:accounts) {
 			BankConsole.display(String.format(PROMPTS.ACCOUNT.toString(),account.getType(),account.getID()+"",account.getBalance()+""));
 		}
 	}
-	private void deposit() {BankConsole.display("You have deposited money");}
-	private void withdraw() {BankConsole.display("You have withdrawn money");}
-	private void transfer() {BankConsole.display("This is a transfer");}
-	private void viewPendingTransfers() {BankConsole.display("These are your transfers.");}
-	private void acceptTransfer() {BankConsole.display("This is where you accept transfers");}
+	private void deposit() {
+		if(accounts==null) {
+			accounts = user.getActiveAccounts();
+		}
+		SessionPOJO userInfo = (SessionPOJO) user;
+		BankConsole.display(PROMPTS.DEPOSIT);
+		int ac = BankConsole.readI();
+		BankConsole.display(PROMPTS.DEPOSIT);
+		double am = BankConsole.readD();
+		if(am>0) {
+			for(AccountsDAO account:accounts) {
+				if(account.getId()==ac) {
+					try {
+						account.update(userInfo.getUserID()+"",am+"");
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		badInput();
+	}
+	private void withdraw() {
+		if(accounts==null) {
+			accounts = user.getActiveAccounts();
+		}
+		SessionPOJO userInfo = (SessionPOJO) user;
+		BankConsole.display(PROMPTS.WITHDRAW);
+		int ac = BankConsole.readI();
+		BankConsole.display(PROMPTS.WITHDRAW);
+		double am = BankConsole.readD();
+		if(am>0) {
+			for(AccountsDAO account:accounts) {
+				if(account.getID()==ac) {
+					try {
+						account.update(userInfo.getUserID()+"",-1*am+"");
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+	private void transfer() {
+		TransferDAO transfer;
+		SessionPOJO userInfo = (SessionPOJO) user;
+		BankConsole.display(PROMPTS.TRANSFER);
+		int fac = BankConsole.readI();
+		BankConsole.display(PROMPTS.TRANSFER);
+		double amount = BankConsole.readI();
+		BankConsole.display(PROMPTS.TRANSFER);
+		int tac = BankConsole.readI();
+		try {
+			transfer = new TransferDAO(userInfo.getUserID(),fac,amount,tac);
+			transfer.insert();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	private void viewPendingTransfers() {
+		SessionPOJO userInfo = (SessionPOJO) user;
+		TransferDAO td = new TransferDAO();
+		try {
+			ArrayList<TransferPOJO> ts = td.select(userInfo.getUserID()+"");
+			BankConsole.display(PROMPTS.PENDINGTRANSFER.get(0));
+			boolean flag= false;
+			for(TransferPOJO t:ts) {
+				if(!flag && t.getFromuid()==userInfo.getUserID()) {
+					flag=true;
+					BankConsole.display(PROMPTS.PENDINGTRANSFER.get(2));
+				}
+				if(t.getFromuid()==userInfo.getUserID()) {
+					BankConsole.display(String.format(PROMPTS.PENDINGTRANSFER.get(3),t.getTransferID(),t.getFromaid(),t.getAmount(),t.getToaid()));
+				}else {
+					BankConsole.display(String.format(PROMPTS.PENDINGTRANSFER.get(1),t.getTransferID(),t.getFromaid(),t.getFromuid(),t.getAmount(),t.getToaid()));
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	private void acceptTransfer() {
+		SessionPOJO userInfo = (SessionPOJO) user;
+		BankConsole.display(PROMPTS.ACCEPTTRANSFER);
+		int tid = BankConsole.readI();
+		BankConsole.display(PROMPTS.ACCEPTTRANSFER);
+		String decision = BankConsole.read();
+		switch(decision.toLowerCase()) {
+			case "a":
+			case "accept":
+				decision="true";
+				break;
+			case "d":
+			case "deny":
+				decision="false";
+				break;
+			default:
+				badInput();
+		}
+		TransferDAO t = new TransferDAO();
+		try {
+			t.update(tid+"",userInfo.getUserID()+"",decision);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	@Override
 	public boolean processInputs() throws BankException {
 		switch(BankConsole.read().toLowerCase()) {

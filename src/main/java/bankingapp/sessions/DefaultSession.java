@@ -18,15 +18,19 @@ public class DefaultSession extends Session{
 		String input=BankConsole.read();
 		BankConsole.display("This is what you did as a default user");
 		switch(input.toLowerCase()) {
+			case "1":
 			case "r":
 			case "register":
 				registerUser();
 				break;
+			case "2":
 			case "l":
 			case "login":
 				login();
 				break;
-			case "q":
+			case "3":
+			case "c":
+			case "close":
 				quit();
 				break;
 		}
