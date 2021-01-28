@@ -83,24 +83,24 @@ public class EmployeeSession extends Session{
 						tFlag=true;
 						BankConsole.display("|Transaction #|Time of Transaction|From Account|From User|Transfered Amount| To Account | To User |");
 					}
-					BankConsole.display(String.format("|{0,13}|{1,19}|{2,12}|{3,9}|{4,17}|{5,12}|{6,9}|",
-							rs.getInt(1),rs.getDate(2),rs.getInt(3),rs.getInt(4),rs.getFloat(5),rs.getInt(6),rs.getInt(7)));
+					BankConsole.display(String.format("|%13s|%19s|%12s|%9s|%17s|%12s|%9s|",
+							rs.getInt(1)+"",rs.getDate(2)+"",rs.getInt(3)+"",rs.getInt(4)+"",rs.getFloat(5)+"",rs.getInt(6)+"",rs.getInt(7)+""));
 				} else if(rs.getInt(6)>0) {
 					//Deposit
 					if(!dFlag) {
 						dFlag=true;
 						BankConsole.display("|Transaction #|Time of Transaction|Deposit Amount| Account | User |");
 					}
-					BankConsole.display(String.format("|{0,13}|{1,19}|{2,14}|{3,9}|{4,6}|",
-							rs.getInt(1),rs.getDate(2),rs.getFloat(5),rs.getInt(6),rs.getInt(7)));
+					BankConsole.display(String.format("|%13s|%19s|%14s|%9s|%6s|",
+							rs.getInt(1)+"",rs.getDate(2)+"",rs.getFloat(5)+"",rs.getInt(6)+"",rs.getInt(7)+""));
 				} else {
 					//Withdraw
 					if(!wFlag) {
 						wFlag=true;
 						BankConsole.display("|Transaction #|Time of Transaction| Account | User |Withdrawn Amount|");
 					}
-					BankConsole.display(String.format("|{0,13}|{1,19}|{2,9}|{3,6}|{4,16}|",
-							rs.getInt(1),rs.getDate(2),rs.getInt(3),rs.getInt(4),rs.getFloat(5)));
+					BankConsole.display(String.format("|%13s|%19s|%9s|%6s|%16s|",
+							rs.getInt(1)+"",rs.getDate(2)+"",rs.getInt(3)+"",rs.getInt(4)+"",rs.getFloat(5)+""));
 				}
 			}
 				

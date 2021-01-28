@@ -1,13 +1,13 @@
 package bankingapp.utils;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import bankingapp.Main;
 
 public class BankLog {
 
-	private static Logger log = LogManager.getLogger(Main.class);;
+	private static Logger log = LogManager.getLogger(Main.class);
 	
 	public static void info(String info) {
 		log.info(info);

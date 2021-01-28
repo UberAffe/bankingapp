@@ -75,7 +75,7 @@ public class CustomerSession extends UserSession{
 		BankConsole.display(PROMPTS.TRANSFER);
 		int fac = BankConsole.readI();
 		BankConsole.display(PROMPTS.TRANSFER);
-		float amount = BankConsole.readI();
+		float amount = BankConsole.readF();
 		BankConsole.display(PROMPTS.TRANSFER);
 		int tac = BankConsole.readI();
 		try {
@@ -168,7 +168,7 @@ public class CustomerSession extends UserSession{
 				break;
 			case "8":
 			case "accept":
-			case "ac": acceptTransfer();
+			case "amt": acceptTransfer();
 				break;
 			case "9":
 			case "logout":

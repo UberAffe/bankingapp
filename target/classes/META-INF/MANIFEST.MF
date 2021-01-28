@@ -1,5 +1,8 @@
 Manifest-Version: 1.0
 Built-By: mattk
 Build-Jdk: 15.0.1
+Class-Path: lib/postgresql-42.2.18.jar lib/checker-qual-3.5.0.jar lib/lo
+ g4j-api-2.13.0.jar lib/log4j-core-2.13.0.jar
+Main-Class: bankingapp.Main
 Created-By: Maven Integration for Eclipse
 

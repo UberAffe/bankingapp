@@ -98,3 +98,20 @@ A Customer has logged in as matt.
 Sessions starting up.
 Attempting log in with: [matt, keran]
 A Customer has logged in as matt.
+User has logged out
+Attempting log in with: [matt2, keran]
+A Customer has logged in as matt2.
+Sessions starting up.
+Attempting log in with: [matt2, keran]
+A Customer has logged in as matt2.
+User has logged out
+Attempting log in with: [matt, keran]
+A Customer has logged in as matt.
+Account was not created for authorization.
+User has logged out
+Attempting log in with: [emp1, emp1]
+An Employee has logged in as emp1.
+User has logged out
+Attempting log in with: [matt, keran]
+A Customer has logged in as matt.
+Sessions starting up.
