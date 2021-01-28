@@ -4,20 +4,20 @@ import java.util.ArrayList;
 
 public class AccountPOJO {
 
-	private int id;
-	private double balance;
-	private String type;
-	private ArrayList<Integer> assocIDs = new ArrayList<Integer>();
+	protected int id;
+	protected float balance;
+	protected String type;
+	protected ArrayList<Integer> assocIDs = new ArrayList<Integer>();
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
-	public double getBalance() {
+	public float getBalance() {
 		return balance;
 	}
-	public void setBalance(double balance) {
+	public void setBalance(float balance) {
 		this.balance = balance;
 	}
 	public String getType() {

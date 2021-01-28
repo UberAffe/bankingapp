@@ -13,7 +13,6 @@ import bankingapp.utils.BankConsole;
 import bankingapp.utils.PROMPTS;
 
 public class CustomerSession extends UserSession{
-	ArrayList<AccountsDAO> accounts;
 	public CustomerSession(SessionDAO userAccount) {
 		super();
 		menu=PROMPTS.CUSTOMERMENU;
@@ -21,51 +20,47 @@ public class CustomerSession extends UserSession{
 	}
 
 	private void view() {
-		if(accounts==null) {
-			accounts = user.getActiveAccounts();
-		}
-		BankConsole.display(PROMPTS.ACCOUNT);
+		ArrayList<AccountsDAO> accounts = user.getActiveAccounts();
+		BankConsole.display(PROMPTS.ACCOUNT.get(0));
 		for(AccountsDAO account:accounts) {
-			BankConsole.display(String.format(PROMPTS.ACCOUNT.get(1),account.getType(),account.getID()+"",account.getBalance()+""));
+			BankConsole.display(String.format(PROMPTS.ACCOUNT.get(1),account.getType(),account.getID()+"",(float)(Math.floor(account.getBalance()*100)/100)+""));
 		}
 	}
 	private void deposit() {
-		if(accounts==null) {
-			accounts = user.getActiveAccounts();
-		}
+		ArrayList<AccountsDAO> accounts = user.getActiveAccounts();
 		SessionPOJO userInfo = (SessionPOJO) user;
 		BankConsole.display(PROMPTS.DEPOSIT);
 		int ac = BankConsole.readI();
 		BankConsole.display(PROMPTS.DEPOSIT);
-		double am = BankConsole.readD();
+		float am = BankConsole.readF();
 		if(am>0) {
 			for(AccountsDAO account:accounts) {
 				if(account.getId()==ac) {
 					try {
-						account.update(userInfo.getUserID()+"",am+"");
+						account.update(userInfo.getUserID()+"",am+"","deposit");
+						BankConsole.display("Successfully deposited $"+am);
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
 			}
+		} else {
+			badInput();
 		}
-		badInput();
 	}
 	private void withdraw() {
-		if(accounts==null) {
-			accounts = user.getActiveAccounts();
-		}
+		ArrayList<AccountsDAO> accounts = user.getActiveAccounts();
 		SessionPOJO userInfo = (SessionPOJO) user;
 		BankConsole.display(PROMPTS.WITHDRAW);
 		int ac = BankConsole.readI();
 		BankConsole.display(PROMPTS.WITHDRAW);
-		double am = BankConsole.readD();
+		float am = BankConsole.readF();
 		if(am>0) {
 			for(AccountsDAO account:accounts) {
 				if(account.getID()==ac) {
 					try {
-						account.update(userInfo.getUserID()+"",-1*am+"");
+						account.update(userInfo.getUserID()+"",am+"","withdraw");
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -80,7 +75,7 @@ public class CustomerSession extends UserSession{
 		BankConsole.display(PROMPTS.TRANSFER);
 		int fac = BankConsole.readI();
 		BankConsole.display(PROMPTS.TRANSFER);
-		double amount = BankConsole.readI();
+		float amount = BankConsole.readI();
 		BankConsole.display(PROMPTS.TRANSFER);
 		int tac = BankConsole.readI();
 		try {

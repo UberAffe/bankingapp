@@ -6,13 +6,13 @@ public enum PROMPTS {
 	APPLY("If you want to apply for a checking account type 'checking', if you want to apply\n"
 			+"for a savings account type 'saving'.",
 			"Enter the amount of money you are initially depositing to open this account."),
-	PENDINGACCOUNT("Your {0} account with account number {1} is still pending approval."),
+	PENDINGACCOUNT("Your %s account with account number %s is still pending approval."),
 	ACCOUNT("|Account Type|Account # |    Balance    |",
-			"|{0,12}|{1,10}|{3,15}|"),
+			"|%-12s|%10s|$%-13s|"),
 	REGISTER("Please enter your desired username.",
 			"Please enter your desired password."),
-	SUCCESSREGISTER("Your account has been registered with username {0},\nand is waiting for approval."),
-	FAILEDREGISTER("Username {0} already exists,\nplease choose a different username."),
+	SUCCESSREGISTER("Your account has been registered with username %s,\nand is waiting for approval."),
+	FAILEDREGISTER("Username %s already exists,\nplease choose a different username."),
 	STARTUPMENU("1. 'register' for a new account (r)",
 			"2. 'login' to an existing account (l)",
 			"3. 'close' the application (c)"),
@@ -30,12 +30,14 @@ public enum PROMPTS {
 				"8. 'accept' money transfer (a)",
 				"9. 'logout' (l)",
 				"10. 'close' application (c)"),
-	EMPLOYEEMENU("1. view pending users",
-				"2. view pending accounts",
-				"3. approve user",
-				"4. approve account",
-				"5. view a customer's accounts",
-				"6. view all transactions"), 
+	EMPLOYEEMENU("1. 'view pending users' (vpu)",
+				"2. 'view pending accounts' (vpa)",
+				"3. 'approve user' (au)",
+				"4. 'approve account' (aa)",
+				"5. 'view a' customer's accounts (vca)",
+				"6. 'view all' transactions (vt)",
+				"7. 'logout' (l)",
+				"8. 'close' application (c)"), 
 	DEPOSIT("Please enter the number of the account you wish to deposit into.",
 			"Please enter the amount you would like to deposit."), 
 	WITHDRAW("Please enter the number of the account you wish to withdraw from.",
@@ -45,12 +47,13 @@ public enum PROMPTS {
 			"Please enter the number of the account you want to transfer to."),
 	PENDINGTRANSFER("These are transfers to your account.\n"
 			+"|Transfer #  |From Account|From User |    Amount    | To Account |",
-			"|{0,12}|{1,12}|{2,10}|{3,14}|{4,12}|",
+			"|%-12s|%-12s|%-10s|$%-13s|%12s|",
 			"These are transfers from your account.\n"
 			+"|Transfer #  |From Account|    Amount    | To Account |",
-			"|{0,12}|{1,12}|{2,14}|{3,12}|"),
+			"|%-12s|%-12s|$%-13s|%12s|"),
 	ACCEPTTRANSFER("Enter the transaction # that you are making a decision on.",
-			"Enter your decision as 'approve'(a) or 'deny'(d)");
+			"Enter your decision as 'approve'(a) or 'deny'(d)"), 
+	PENDINGUSER("User with id %s is waiting for approval.");
 	private String []text;
 	private String instructions;
 	private int position;

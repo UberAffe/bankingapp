@@ -2,8 +2,10 @@ package bankingapp.daos;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 
 import bankingapp.pojos.TransferPOJO;
@@ -15,7 +17,7 @@ public class TransferDAO extends TransferPOJO implements BasicDAO{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public TransferDAO(int fromuid, int fromaid, double amount, int toaid) {
+	public TransferDAO(int fromuid, int fromaid, float amount, int toaid) {
 		super(-1, fromuid, fromaid, amount, toaid);
 		// TODO Auto-generated constructor stub
 	}
@@ -27,7 +29,8 @@ public class TransferDAO extends TransferPOJO implements BasicDAO{
 				CallableStatement cs = conn.prepareCall("call posttransfer(?,?,?,?)");
 				cs.setInt(1, fromuid);
 				cs.setInt(2, fromaid);
-				cs.setDouble(3, amount);
+				cs.registerOutParameter(3, Types.REAL);
+				cs.setFloat(3, amount);
 				cs.setInt(4, toaid);
 				cs.execute();
 			}
@@ -42,8 +45,10 @@ public class TransferDAO extends TransferPOJO implements BasicDAO{
 			CallableStatement cs = conn.prepareCall("call accepttransfer(?,?,?)");
 			cs.setInt(1, tid);
 			cs.setInt(2, uid);
+			cs.registerOutParameter(3, Types.BOOLEAN);
 			cs.setBoolean(3, decision);
-			return cs.execute();
+			cs.execute();
+			return cs.getBoolean(3);
 		}
 	}
 	@Override
@@ -55,17 +60,14 @@ public class TransferDAO extends TransferPOJO implements BasicDAO{
 	public ArrayList<TransferPOJO> select(String... args) throws SQLException {
 		int uid = Integer.parseInt(args[0]);
 		try(Connection conn = Credentials.getConnection();){
-			CallableStatement cs = conn.prepareCall("?= call getpendingtransfers(?)");
-			cs.setInt(2, uid);
-			ResultSet rs= cs.executeQuery();
+			PreparedStatement ps = conn.prepareStatement("select * from getpendingtransfers(?)");
+			ps.setInt(1, uid);
+			ResultSet rs= ps.executeQuery();
 			ArrayList<TransferPOJO> transfers= new ArrayList<TransferPOJO>();
 			while(rs.next()) {
-				transfers.add(new TransferPOJO(rs.getInt(1),rs.getInt(2),rs.getInt(3),rs.getDouble(4),rs.getInt(5)));
+				transfers.add(new TransferPOJO(rs.getInt(1),rs.getInt(2),rs.getInt(3),(float)(Math.floor(rs.getFloat(4)*100)/100),rs.getInt(5)));
 			}
 			return transfers;
 		}
 	}
-	
-	
-	
 }

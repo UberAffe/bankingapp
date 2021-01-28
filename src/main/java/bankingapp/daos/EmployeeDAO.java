@@ -1,13 +1,16 @@
 package bankingapp.daos;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import bankingapp.pojos.SessionPOJO;
 
-public class EmployeeAccount extends SessionPOJO implements SessionDAO {
+public class EmployeeDAO extends SessionPOJO implements SessionDAO {
 
-	public EmployeeAccount(int userID, String un, String pw) {
+	public EmployeeDAO(int userID, String un, String pw) {
 		super(userID,un,pw);
 	}
 
@@ -29,13 +32,20 @@ public class EmployeeAccount extends SessionPOJO implements SessionDAO {
 	}
 
 	@Override
-	public ArrayList select(String ...args) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<BasicDAO> select(String ...args) throws SQLException {
+		ArrayList<BasicDAO> aList = new ArrayList<BasicDAO>();
+		try(Connection conn = Credentials.getConnection();){
+			PreparedStatement ps = conn.prepareStatement("select * from getuserids()");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				aList.add(DAOFactory.getUser(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(5)));
+			}
+		}
+		return aList;
 	}
 
 	@Override
-	public void applyForAccount(String string, double parseDouble) {
+	public void applyForAccount(String string, float parseFloat) {
 		// TODO Auto-generated method stub
 		
 	}

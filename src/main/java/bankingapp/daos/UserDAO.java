@@ -2,6 +2,8 @@ package bankingapp.daos;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
@@ -19,15 +21,14 @@ public class UserDAO extends SessionPOJO implements SessionDAO{
 
 	public static void registerUser(String un, String pw) throws BankException {
 		try(Connection conn = Credentials.getConnection();){
-			CallableStatement cs = conn.prepareCall("{?= call registeruser(?,?,?)}");
-			cs.registerOutParameter(1, Types.BOOLEAN);
-			cs.setString(2, un);
-			cs.setString(3, pw);
-			cs.setString(4,"CUSTOMER");
-			if(cs.execute()) {
-				if(!cs.getBoolean(1)) {
-					throw new BankException(EXCEPT.REGISTER);
-				}
+			PreparedStatement ps = conn.prepareStatement("{select * from registeruser(?,?,?)}");
+			ps.setString(1, un);
+			ps.setString(2, pw);
+			ps.setString(3,"CUSTOMER");
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			if(!rs.getBoolean(1)) {
+				throw new BankException(EXCEPT.REGISTER);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -35,13 +36,12 @@ public class UserDAO extends SessionPOJO implements SessionDAO{
 		} 
 	}
 	
-	public void applyForAccount(String type, double amount) {
+	public void applyForAccount(String type, float amount) {
 		try(Connection conn = Credentials.getConnection();){
-			CallableStatement cs = conn.prepareCall("?= registeraccount(?, ?, ?)");
-			cs.registerOutParameter(1, Types.BOOLEAN);
-			cs.setInt(2, userID);
-			cs.setDouble(3, amount);
-			cs.setString(4, type);
+			CallableStatement cs = conn.prepareCall("call registeraccount(?, ?, ?)");
+			cs.setInt(1, userID);
+			cs.setFloat(2, amount);
+			cs.setString(3, type);
 			if(!cs.execute()) {
 				BankLog.warn("Account was not created for authorization.");
 			}

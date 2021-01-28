@@ -8,11 +8,11 @@ import java.util.ArrayList;
 
 import bankingapp.utils.BankLog;
 
-public class CustomerAccount extends UserDAO {
+public class CustomerDAO extends UserDAO {
 	
 	private ArrayList<AccountsDAO> accounts = new ArrayList<AccountsDAO>();
 	
-	public CustomerAccount(int userID, String un, String pw) {
+	public CustomerDAO(int userID, String un, String pw) {
 		super(userID, un,pw);
 	}
 
@@ -20,15 +20,15 @@ public class CustomerAccount extends UserDAO {
 		return accounts;
 	}
 	
-	public void withdraw(int accountID, double amount) {
+	public void withdraw(int accountID, float amount) {
 		
 	}
 	
-	public void deposit(int accountID, double amount) {
+	public void deposit(int accountID, float amount) {
 		
 	}
 	
-	public void postTransfer(int faid, int taid, double amount) {
+	public void postTransfer(int faid, int taid, float amount) {
 		
 	}
 	

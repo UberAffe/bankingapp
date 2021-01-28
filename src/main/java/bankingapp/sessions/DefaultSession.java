@@ -16,7 +16,7 @@ public class DefaultSession extends Session{
 	@Override
 	public boolean processInputs() throws BankException {
 		String input=BankConsole.read();
-		BankConsole.display("This is what you did as a default user");
+		//BankConsole.display("This is what you did as a default user");
 		switch(input.toLowerCase()) {
 			case "1":
 			case "r":

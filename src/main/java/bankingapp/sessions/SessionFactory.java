@@ -1,9 +1,9 @@
 package bankingapp.sessions;
 
 import bankingapp.daos.SessionDAO;
-import bankingapp.daos.CustomerAccount;
+import bankingapp.daos.CustomerDAO;
 import bankingapp.daos.DAOFactory;
-import bankingapp.daos.EmployeeAccount;
+import bankingapp.daos.EmployeeDAO;
 import bankingapp.daos.UserDAO;
 import bankingapp.exceptions.BankException;
 import bankingapp.utils.BankConsole;
@@ -26,10 +26,10 @@ public class SessionFactory {
 
 	public static void login(String username, String password) throws BankException {
 		SessionDAO account=DAOFactory.getSession(username, password);
-		if(account instanceof CustomerAccount) {
+		if(account instanceof CustomerDAO) {
 			BankLog.info("A Customer has logged in as "+username+".");
 			user= new CustomerSession(account);
-		} else if(account instanceof EmployeeAccount) {
+		} else if(account instanceof EmployeeDAO) {
 			BankLog.info("An Employee has logged in as "+username+".");
 			user= new EmployeeSession(account);
 		} else if(account instanceof UserDAO) {

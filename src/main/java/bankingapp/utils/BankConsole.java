@@ -15,8 +15,8 @@ public class BankConsole {
 	public static String read() {
 		return sc.nextLine();
 	}
-	public static Double readD() {
-		return Math.floor(Double.parseDouble(sc.nextLine())*100)/100;
+	public static float readF() {
+		return (float) (Math.floor(Float.parseFloat(sc.nextLine())*100)/100);
 	}
 	public static Integer readI() {
 		return Integer.parseInt(sc.nextLine());

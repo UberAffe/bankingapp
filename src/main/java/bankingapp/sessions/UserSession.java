@@ -18,23 +18,22 @@ public class UserSession extends Session{
 	}
 	
 	protected void apply() {
-		String []inputs = new String[2];
 		BankConsole.display(PROMPTS.APPLY);
-		inputs[0]=BankConsole.read();
+		String type=BankConsole.read();
 		BankConsole.display(PROMPTS.APPLY);
-		inputs[1]=BankConsole.read();
+		float amount=BankConsole.readF();
 		try{
-			switch(inputs[0].toLowerCase()) {
+			switch(type.toLowerCase()) {
 				case "c":
 				case "check":
 				case "checking":
-					user.applyForAccount("CHECKING", Math.floor(Double.parseDouble(inputs[1])*100)/100);
+					user.applyForAccount("CHECKING", amount);
 					break;
 				case "s":
 				case "save":
 				case "saving":
 				case "savings":
-					user.applyForAccount("SAVING", Math.floor(Double.parseDouble(inputs[1])*100)/100);
+					user.applyForAccount("SAVING", amount);
 					break;
 				default:
 					badInput();
