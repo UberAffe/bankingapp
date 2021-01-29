@@ -11,7 +11,11 @@ public abstract class Session {
 	protected static boolean logout=false;
 	protected PROMPTS menu;
 	
-	public void options() {menu.showMenu();}
+	public void options() {
+		BankConsole.display("");
+		menu.showMenu();
+		BankConsole.display("");
+	}
 	public abstract boolean processInputs() throws BankException;
 	
 	protected void badInput() {

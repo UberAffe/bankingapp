@@ -198,7 +198,7 @@ public class EmployeeSession extends Session{
 					if(b instanceof CustomerDAO) {
 						ArrayList<AccountsDAO> accounts =((CustomerDAO)b).getPendingAccounts();
 						for(AccountsDAO account:accounts) {
-							BankConsole.display(String.format("|{0,6}|{1,9}|{2,12}|",((CustomerDAO) b).getUserID(),account.getType()));
+							BankConsole.display(String.format("|{%6s|%9s|%12s|",((CustomerDAO) b).getUserID()+"",account.getID()+"",account.getType()+""));
 						}
 					}
 				}

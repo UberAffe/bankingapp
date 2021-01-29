@@ -21,7 +21,7 @@ public class DAOTests {
 		try {
 			UserDAO.registerUser("matt", "keran");
 		} catch (BankException e) {
-			Assertions.assertTrue(e.reason==EXCEPT.LOGIN);
+			Assertions.assertTrue(e.reason==EXCEPT.REGISTER);
 		}
 	}
 	

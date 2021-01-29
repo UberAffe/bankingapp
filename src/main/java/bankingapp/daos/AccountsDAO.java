@@ -59,6 +59,7 @@ public class AccountsDAO extends AccountPOJO implements BasicDAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		BankLog.info("Getting user accounts");
 		return accounts;
 	}
 
@@ -75,8 +76,10 @@ public class AccountsDAO extends AccountPOJO implements BasicDAO{
 			int uid = Integer.parseInt(args[0]);
 			float amount = (float)(Math.floor(Float.parseFloat(args[1])*100)/100);
 			if(args[2].equals("deposit")) {
+				BankLog.info("depositing");
 				cs= conn.prepareCall("call deposit(?,?,?)");
 			} else if(args[2].equals("withdraw")) {
+				BankLog.info("withdrawing");
 				cs= conn.prepareCall("call withdraw(?,?,?)");
 			}
 			cs.setInt(1, uid);

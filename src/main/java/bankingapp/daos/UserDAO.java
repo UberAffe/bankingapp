@@ -21,7 +21,7 @@ public class UserDAO extends SessionPOJO implements SessionDAO{
 
 	public static void registerUser(String un, String pw) throws BankException {
 		try(Connection conn = Credentials.getConnection();){
-			PreparedStatement ps = conn.prepareStatement("{select * from registeruser(?,?,?)}");
+			PreparedStatement ps = conn.prepareStatement("select * from registeruser(?,?,?)");
 			ps.setString(1, un);
 			ps.setString(2, pw);
 			ps.setString(3,"CUSTOMER");
@@ -32,7 +32,8 @@ public class UserDAO extends SessionPOJO implements SessionDAO{
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new BankException(EXCEPT.REGISTER);
+			//e.printStackTrace();
 		} 
 	}
 	

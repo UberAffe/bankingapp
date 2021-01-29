@@ -1,3 +1,28 @@
-2021-01-28 01:11:35 INFO  Sessions starting up.
-2021-01-28 01:11:42 INFO  Attempting log in with: [matt, keran]
-2021-01-28 01:11:43 INFO  A Customer has logged in as matt.
+2021-01-28 14:29:23 INFO  Sessions starting up.
+2021-01-28 14:29:35 INFO  Attempting log in with: [matt, keran]
+2021-01-28 14:29:36 INFO  A Customer has logged in as matt.
+2021-01-28 14:29:38 INFO  Getting user accounts
+2021-01-28 14:30:33 INFO  User has logged out
+2021-01-28 14:30:38 INFO  Attempting log in with: [matt2, keran]
+2021-01-28 14:30:38 INFO  A Customer has logged in as matt2.
+2021-01-28 14:31:09 INFO  Getting user accounts
+2021-01-28 14:31:16 INFO  User has logged out
+2021-01-28 14:31:21 INFO  Attempting log in with: [matt, keran]
+2021-01-28 14:31:21 INFO  A Customer has logged in as matt.
+2021-01-28 14:31:22 INFO  Getting user accounts
+2021-01-28 14:31:42 INFO  Getting user accounts
+2021-01-28 14:31:57 WARN  Account was not created for authorization.
+2021-01-28 14:32:00 INFO  Getting user accounts
+2021-01-28 14:32:14 INFO  User has logged out
+2021-01-28 14:32:20 INFO  Attempting log in with: [emp1, emp1]
+2021-01-28 14:32:20 INFO  An Employee has logged in as emp1.
+2021-01-28 14:32:29 INFO  Getting user accounts
+2021-01-28 14:32:29 INFO  Getting user accounts
+2021-01-28 14:32:29 INFO  Getting user accounts
+2021-01-28 14:33:18 INFO  Getting user accounts
+2021-01-28 14:33:44 INFO  User has logged out
+2021-01-28 14:33:50 INFO  Attempting log in with: [matt, keran]
+2021-01-28 14:33:50 INFO  A Customer has logged in as matt.
+2021-01-28 14:33:53 INFO  Getting user accounts
+2021-01-28 14:34:05 INFO  depositing
+2021-01-28 14:34:06 INFO  Getting user accounts
